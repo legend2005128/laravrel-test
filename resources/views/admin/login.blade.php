@@ -3,6 +3,9 @@
 @section('content')
     {!!Form::open(array('id'=>'form1','url'=>'admin/index','class'=>"form-horizontal" ,'role'=>'form'))!!}
         <div class="form-group">
+            <h3>登录页面：</h3>
+        </div>
+        <div class="form-group">
             <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
             <div class="col-sm-10">
                 <?php echo Form::text('uname','',['placeholder' => 'Email',"id"=> "inputEmail3", "class"=>"form-control"] );?>

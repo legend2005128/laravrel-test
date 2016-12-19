@@ -12,8 +12,9 @@
 */
 Route::group([ 'namespace'=>'admin'],function (){
     Route::get("index",'IndexController@index');
-    Route::get("login",'IndexController@login');
+   // Route::get("login",'IndexController@login');
 });
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +27,21 @@ Route::group([ 'namespace'=>'admin'],function (){
 |
 */
 
-Route::group(['middleware' => ['web']], function () {});
+
+Route::group(['middleware' => ['web']], function () {
+    Route::auth();
+    Route::get('/', 'HomeController@index');
+
+
+    //新闻
+    Route::group(['prefix'=>'news'],function (){
+        //新闻列表
+        Route::get('list', 'NewsController@list');
+        //新闻详情
+        Route::get('detail/{id}', 'NewsController@detail');
+    });
+
+});
+
+
+
