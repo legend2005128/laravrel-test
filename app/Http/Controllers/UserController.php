@@ -5,7 +5,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Input;
 use App\Http\Requests;
 use App\User;
-
+use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     //列表页
@@ -16,7 +16,6 @@ class UserController extends Controller
     //列表页请求
     public function ajaxlist( Response $response )
     {
-
         $info = DB::table('users')->select('id','name','email','phone')->orderBy('id','asc')->get();
         return Response()->json($info);
     }
@@ -26,12 +25,11 @@ class UserController extends Controller
     {
        if( $request->isMethod('post') ){
            $request_s = $request->all();
-         // $this->validator();
            $this->validate($request, [
                'name' => 'required|max:255',
                'email' => 'required|email|max:255|unique:users',
-               'phone' => 'regex:/^1[35784](\d){9}$/|unique:users,phone',
-               'password' => 'required|min:6|confirmed',
+               'phone' => 'regex:/^1[34578](\d){9}$/|unique:users,phone',
+               'password' => 'required|min:6',
            ]);
            if($request_s){
                User::create([
