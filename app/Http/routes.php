@@ -26,8 +26,13 @@ Route::group(['middleware' => ['web']], function ()
     Route::group(['prefix'=>'user'],function (){
         Route::get('/','UserController@list');
         Route::get('/add','UserController@add');
+        Route::post('/add','UserController@add');
+        Route::get('/list','UserController@list');
     });
-
+});
+//用户ajax请求
+Route::group([ 'middleware'=>['ajax']],function (){
+    Route::get('/user/ajaxlist','UserController@ajaxlist');
 });
 
 

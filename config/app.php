@@ -2,6 +2,9 @@
 
 return [
 
+
+    'asset_path' => 'resources/assets',
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
