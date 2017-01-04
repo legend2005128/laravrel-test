@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Middleware;
-
+use Illuminate\Support\Facades\Auth;
 use Closure;
 
-class Ajaxrequests
+class AuthSet
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,9 @@ class Ajaxrequests
      */
     public function handle($request, Closure $next)
     {
-        if( !$request->ajax() && !$request->wantsJson()) {
-            return response("Unauthorized.", 401);
+        if( !(Auth::user()) ){
+            return redirect()->guest('login');
         }
-        header("charset=utf-8");
         return $next($request);
     }
 }
