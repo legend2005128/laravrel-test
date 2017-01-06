@@ -18,7 +18,7 @@ class Ajaxrequests
         if( !$request->ajax() && !$request->wantsJson()) {
             return response("Unauthorized.", 401);
         }
-        header("charset=utf-8");
+        header('charset:utf-8');
         return $next($request);
     }
 }

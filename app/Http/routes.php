@@ -11,19 +11,16 @@
 */
 Route::group(['middleware' => ['web']], function ()
 {
-    //认证系统
-    Route::auth();
-    //首页
-    Route::get('/', 'HomeController@index');
+
+    Route::auth();   //认证系统
+    Route::get('/', 'HomeController@index');  //首页
     //新闻
-    Route::group(['prefix'=>'news','middleware'=>['authset']],function (){
-        //新闻列表
-        Route::get('/', 'NewsController@list');
-        //新闻详情
-        Route::get('detail/{id}', 'NewsController@detail');
+    Route::group(['prefix'=>'news','middleware'=>['auth']],function (){
+        Route::get('/', 'NewsController@list'); //新闻列表
+        Route::get('detail/{id}', 'NewsController@detail');   //新闻详情
     });
     //用户
-    Route::group(['prefix'=>'user','middleware'=>['authset']],function (){
+    Route::group(['prefix'=>'user','middleware'=>['auth']],function (){
         Route::get('/','UserController@list');
         Route::get('/add','UserController@add');
         Route::post('/add','UserController@add');
@@ -31,7 +28,7 @@ Route::group(['middleware' => ['web']], function ()
     });
 });
 
-//用户ajax请求
+//ajax请求
 Route::group([ 'middleware'=>['ajax']],function (){
     Route::get('/user/ajaxlist','UserController@ajaxlist');
 });

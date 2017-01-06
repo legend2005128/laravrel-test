@@ -11,12 +11,22 @@ class UserController extends Controller
     //列表页
     public function list(  )
     {
-      return view('user.list');
+        return view('user.list');
     }
+
     //列表页请求
-    public function ajaxlist( Response $response )
+    public function ajaxlist( Request $request )
     {
-        $info = DB::table('users')->select('id','name','email','phone')->orderBy('id','asc')->get();
+        $filter_arr = $request->all();
+        $qu = DB::table('users')->select('id','name','email','phone');
+        if( $filter_arr['search'] != '搜索' )
+        {
+            $qu->where('name', 'like', '%'.$filter_arr['search'].'%')->where('email', 'like', '%'.$filter_arr['search'].'%');
+        }
+        $info =  $qu->orderBy('id','asc')
+                    ->limit($filter_arr['limit'])
+                    ->offset($filter_arr['offset'])
+                    ->get();
         return Response()->json($info);
     }
 
