@@ -15,8 +15,8 @@ class NewsController extends Controller
     //列表页
     public function list()
     {
-        $info = article::all();
-        return view('news.list',['info'=>$info]);
+       $info = article::all();
+       return view('news.list',['info'=>$info]);
     }
     //详情页
     public function detail( int $id )
